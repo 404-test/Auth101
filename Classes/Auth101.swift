@@ -8,22 +8,22 @@
 
 import Foundation
 
-final class Auth101 {
+public final class Auth101 {
 
-	typealias RegistrationHandler101 = (_ success: Bool, _ result: RegistrationResponse101?,
+	public typealias RegistrationHandler101 = (_ success: Bool, _ result: RegistrationResponse101?,
 		_ error: Error101?) -> Void
-	typealias ActivationHandler101 = (_ success: Bool, _ error: Error101?) -> Void
+	public typealias ActivationHandler101 = (_ success: Bool, _ error: Error101?) -> Void
 
 	private var host: String!
 
-	init(host: String) {
+	public init(host: String) {
 		// TODO: add check to correct url string and normalization for string [remove last "/"]
 		self.host = host
 	}
 
 	private init() {}
 
-	func signUp(with registrationRequest: RegistrationRequest101, completion: RegistrationHandler101?) {
+	public func signUp(with registrationRequest: RegistrationRequest101, completion: RegistrationHandler101?) {
 
 		if var url = URL(string: host) {
 			url.appendPathComponent("/api/user/registration/")
@@ -68,7 +68,7 @@ final class Auth101 {
 		
 	}
 	
-	func activate(with activationRequest: ActivationRequest101, completion: ActivationHandler101?) {
+	public func activate(with activationRequest: ActivationRequest101, completion: ActivationHandler101?) {
 		if var url = URL(string: host) {
 			url.appendPathComponent("/api/user/activate/")
 			var request = URLRequest(url: url)

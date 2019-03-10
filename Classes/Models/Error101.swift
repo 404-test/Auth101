@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Error101 {
+public struct Error101 {
 	var code: Int
 	var message: String
 	

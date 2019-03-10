@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RegistrationResponse101 {
+public struct RegistrationResponse101 {
 	var id: Int
 	var email: String
 	var userName: String

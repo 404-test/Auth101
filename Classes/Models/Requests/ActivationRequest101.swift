@@ -8,9 +8,14 @@
 
 import Foundation
 
-struct ActivationRequest101 {
+public struct ActivationRequest101 {
 	var email: String
 	var code: String
+	
+	public init(email: String, code: String) {
+		self.email = email
+		self.code = code
+	}
 }
 
 extension ActivationRequest101: Codable {

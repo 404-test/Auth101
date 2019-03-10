@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct RegistrationRequest101 {
+public struct RegistrationRequest101 {
 	var email: String
 	var phoneNumber: String
 	var password: String
 	var userName: String
 	
-	init(email: String, phoneNumber: String, userName: String, password: String) {
+	public init(email: String, phoneNumber: String, userName: String, password: String) {
 		self.email = email
 		self.phoneNumber = phoneNumber
 		self.password = password

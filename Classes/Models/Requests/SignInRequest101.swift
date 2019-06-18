@@ -22,4 +22,3 @@ extension SignInRequest101: Codable {
 		case email, password
 	}
 }
-

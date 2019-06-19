@@ -9,8 +9,8 @@
 import Foundation
 
 public struct Error101 {
-	var code: Int
-	var message: String
+	public private(set) var code: Int
+	public private(set) var message: String
 	
 	init(code: Int, message: String) {
 		self.code = code

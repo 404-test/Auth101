@@ -9,10 +9,10 @@ import Foundation
 
 public struct RestoreRequest101 {
 	public private(set) var email: String
-	public private(set) var code: String?
+	public private(set) var code: Int?
 	public private(set) var password: String?
 	
-	public init(email: String, code: String?, password: String?) {
+	public init(email: String, code: Int?, password: String?) {
 		self.email = email
 		self.code = code
 		self.password = password
@@ -22,7 +22,7 @@ public struct RestoreRequest101 {
 		self.email = email
 	}
 	
-	public mutating func set(code: String) {
+	public mutating func set(code: Int) {
 		self.code = code
 	}
 	

@@ -23,4 +23,8 @@ Pod::Spec.new do |s|
 	s.source_files = 'Classes/**/*'
 	
 	s.frameworks = 'Foundation'
+
+	s.dependency 'Alamofire'
+	s.dependency 'SharedModel', :git => 'git@github.com:101-group/SharedModel.git'
+	
 end

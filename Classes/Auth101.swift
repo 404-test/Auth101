@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 public final class Auth101 {
 
@@ -17,6 +18,8 @@ public final class Auth101 {
 	public typealias SignInHandler101 = (_ success: Bool, _ result: SignInResponse101?, _ error: Error101?) -> Void
 
 	private var host: String!
+	
+	private var manager = SessionManager()
 
 	public init(host: String) {
 		// TODO: add check to correct url string and normalization for string [remove last "/"]
@@ -117,36 +120,56 @@ public final class Auth101 {
 			} catch {
 				fatalError(error.localizedDescription)
 			}
-			
+
 			addHeaders(to: &request)
-			
-			let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-				guard nil == error else {
-					completion?(false, nil, Error101(code: 9999, message: error!.localizedDescription))
-					return
-				}
 
-				guard let response = response else {
-					completion?(false, nil, Error101(code: 9999, message: "Response id nil"))
-					return
-				}
-				
-				guard (200...299).contains(response.getStatusCode() ?? 0) else {
-					completion?(false, nil, Error101(code: response.getStatusCode() ?? 0, message: "SignIn http code validation error"))
-					return
-				}
-
-				if let data = data {
-					do {
-						let validResponse = try JSONDecoder().decode(SignInResponse101.self, from: data)
-						completion?(true, validResponse, nil)
-					} catch {
-						completion?(false, nil, Error101(code: 9999, message: "Can't decode response"))
+			manager.request(request)
+				.validate()
+				.responseData { responseData in
+					let decoder = JSONDecoder()
+					decoder.dateDecodingStrategy = .secondsSince1970
+					
+					switch responseData.result {
+					case .success(let data):
+						do {
+							let validResponse = try JSONDecoder().decode(SignInResponse101.self, from: data)
+							completion?(true, validResponse, nil)
+						} catch {
+							completion?(false, nil, Error101(code: 9999, message: "Can't decode response"))
+						}
+					case .failure(let error):
+						completion?(false, nil, Error101(code: 9999, message: error.localizedDescription))
+						return
 					}
-				}
 			}
 			
-			dataTask.resume()
+//			let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//				guard nil == error else {
+//					completion?(false, nil, Error101(code: 9999, message: error!.localizedDescription))
+//					return
+//				}
+//
+//				guard let response = response else {
+//					completion?(false, nil, Error101(code: 9999, message: "Response id nil"))
+//					return
+//				}
+//
+//				guard (200...299).contains(response.getStatusCode() ?? 0) else {
+//					completion?(false, nil, Error101(code: response.getStatusCode() ?? 0, message: "SignIn http code validation error"))
+//					return
+//				}
+//
+//				if let data = data {
+//					do {
+//						let validResponse = try JSONDecoder().decode(SignInResponse101.self, from: data)
+//						completion?(true, validResponse, nil)
+//					} catch {
+//						completion?(false, nil, Error101(code: 9999, message: "Can't decode response"))
+//					}
+//				}
+//			}
+//
+//			dataTask.resume()
 		}
 	}
 	
@@ -249,7 +272,7 @@ public final class Auth101 {
 	func addHeaders(to request: inout URLRequest) {
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
-		request.addValue(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "", forHTTPHeaderField: "X-App-Version")
+//		request.addValue(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "", forHTTPHeaderField: "X-App-Version")
 		request.addValue("ios", forHTTPHeaderField: "X-App-Type")
 	}
 	

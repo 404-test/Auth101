@@ -16,15 +16,9 @@ Pod::Spec.new do |s|
 	s.author           = { 'Maksim Petrenko' => 'mpetrenko@me.com' }
 	s.source           = { :git => 'https://github.com/101-group/Auth101.git', :tag => s.version.to_s }
 	
-	s.ios.deployment_target = '8.0'
-	
+	s.ios.deployment_target = '10.0'
 	s.swift_version = '4.0'
-	
 	s.source_files = 'Classes/**/*'
-	
 	s.frameworks = 'Foundation'
-
 	s.dependency 'Alamofire'
-	s.dependency 'SharedModel', :git => 'git@github.com:101-group/SharedModel.git'
-	
 end

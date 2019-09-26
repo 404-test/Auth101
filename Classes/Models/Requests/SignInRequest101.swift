@@ -8,8 +8,8 @@
 import Foundation
 
 public struct SignInRequest101 {
-	var email: String
-	var password: String
+	public var email: String
+	public var password: String
 	
 	public init(email: String, password: String) {
 		self.email = email

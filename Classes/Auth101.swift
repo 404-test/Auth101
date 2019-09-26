@@ -142,34 +142,6 @@ public final class Auth101 {
 						return
 					}
 			}
-			
-//			let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-//				guard nil == error else {
-//					completion?(false, nil, Error101(code: 9999, message: error!.localizedDescription))
-//					return
-//				}
-//
-//				guard let response = response else {
-//					completion?(false, nil, Error101(code: 9999, message: "Response id nil"))
-//					return
-//				}
-//
-//				guard (200...299).contains(response.getStatusCode() ?? 0) else {
-//					completion?(false, nil, Error101(code: response.getStatusCode() ?? 0, message: "SignIn http code validation error"))
-//					return
-//				}
-//
-//				if let data = data {
-//					do {
-//						let validResponse = try JSONDecoder().decode(SignInResponse101.self, from: data)
-//						completion?(true, validResponse, nil)
-//					} catch {
-//						completion?(false, nil, Error101(code: 9999, message: "Can't decode response"))
-//					}
-//				}
-//			}
-//
-//			dataTask.resume()
 		}
 	}
 	
